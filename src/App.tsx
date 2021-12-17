@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion, AnimatePresence, useMotionValue} from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 import { useState } from "react";
 
 const Wrapper = styled.div`
