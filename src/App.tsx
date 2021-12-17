@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence, useMotionValue} from "framer-motion";
 import { useState } from "react";
 
 const Wrapper = styled.div`
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 400px;
+  width: 500px;
   gap: 10px;
   margin-bottom: 50px;
 `;
@@ -24,7 +24,7 @@ const Box = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, .6);
-  border-radius: 40px;
+  border-radius: 10px;
   height: 200px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
@@ -49,9 +49,18 @@ const SwitchBtn = styled.button<{switchball:boolean}>`
 `;
 
 const boxVariants = {
-  hovering:{
+  hoveringOne:{
     backgroundColor:"white",
-    scale: 1.13,
+    scale: 1.1,
+    x:-10,
+    y:-10,
+    transition: { duration: .3 },
+  },
+  hoveringLast:{
+    backgroundColor:"white",
+    scale: 1.1,
+    x:10,
+    y:10,
     transition: { duration: .3 },
   },
   before:{
@@ -59,8 +68,8 @@ const boxVariants = {
     height: 200
   },
   after:{
-    width: 180,
-    height: 180,
+    width: 250,
+    height: 200,
     backgroundColor:"white",
   }
 };
@@ -86,7 +95,6 @@ function App() {
   const [big, setBig] = useState<boolean>(false);
   const [switchball, setSwitchball] = useState<boolean>(false);
   const toggleSwitchball = () => setSwitchball((prev) => !prev);
-  
   const [clickBox, setClickBox] = useState<string>("first");
   const toggleClickBox = (id:string) => {
     setClickBox(id);
@@ -97,7 +105,7 @@ function App() {
         <Grid>
             <Box
               variants={boxVariants}
-              whileHover="hovering"
+              whileHover="hoveringOne"
               layoutId='first'
               onClick={()=>{
                 toggleClickBox("first");
@@ -116,7 +124,7 @@ function App() {
             </Box>
             <Box
               variants={boxVariants}
-              whileHover="hovering"
+              whileHover="hoveringLast"
               layoutId='second'
               onClick={()=>{
                 toggleClickBox("second");
